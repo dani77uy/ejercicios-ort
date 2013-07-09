@@ -158,108 +158,124 @@ public class ListaImpl extends Lista {
 		}
 		return max;
 	}
-	
+
 	/**
 	 * 
-	 * @return int
-	 * Ejercicio 3
+	 * @return int Ejercicio 3
 	 */
-	public int promedio(){
-		return this.suma()/this.largo();
+	public int promedio() {
+		return this.suma() / this.largo();
 	}
-	
-	private int suma(){
+
+	private int suma() {
 		int suma = 0;
 		if (!this.esVacia()) {
 			Nodo nodo = this.nodoInicial;
-			while (nodo != null){
+			while (nodo != null) {
 				suma = suma + nodo.getDato();
 				nodo = nodo.getSiguiente();
 			}
 		}
 		return suma;
 	}
-	
+
 	/**
 	 * 
 	 * @param n
-	 * @return int
-	 * Ejercicio 2
+	 * @return int Ejercicio 2
 	 */
-	public int tomar_n(int n){
-		if (this.largo()>=n){
+	public int tomar_n(int n) {
+		if (this.largo() >= n) {
 			int cont = 1;
 			Nodo nodo = this.nodoInicial;
-			while (nodo != null){
+			while (nodo != null) {
 				if (cont == n)
 					return nodo.getDato();
 				nodo = nodo.getSiguiente();
 				cont++;
 			}
-		} 
-		else 
-		   throw new IllegalArgumentException();
+		} else
+			throw new IllegalArgumentException();
 		return -1;
 	}
-	
+
 	/**
 	 * 
 	 * @param n
 	 * @param m
-	 * @return Lista
-	 * Ejercicio 2
+	 * @return Lista Ejercicio 2
 	 */
-	public Lista cambiar(int n, int m){
+	public Lista cambiar(int n, int m) {
 		if (this.esVacia())
 			return null;
 		Lista lista = new Lista();
 		Nodo nodo = this.nodoInicial;
-		while (nodo != null){
+		while (nodo != null) {
 			if (nodo.getDato() == n)
 				lista.agregar(m);
-			else 
+			else
 				lista.agregar(nodo.getDato());
 			nodo = nodo.getSiguiente();
 		}
 		return lista;
 	}
 
+	public Lista quitarInicio() {
+		if (this.esVacia())
+			return null;
+		Lista l = (Lista) this.clone();
+		l.nodoInicial = l.nodoInicial.siguiente;
+		return l;
+	}
+	
 	/**
 	 * 
 	 * @param l
 	 * @param p
-	 * @return boolean
-	 * Ejercicio 3
+	 * @return boolean Ejercicio 3
 	 */
-	public static boolean iguales(Lista l, Lista p){
-		if (l.esVacia() && p.esVacia()) return true;
-		return iguales(l.elemento(), p.elemento(),l,p);
+	public static boolean iguales(Lista l, Lista p) {
+		if (l.esVacia() && p.esVacia())
+			return true;
+		return iguales(l.elemento(), p.elemento(), l, p);
 	}
 
 	private static boolean iguales(int elemento, int elemento2, Lista l, Lista p) {
-		if (l.elemento()!=elemento && p.elemento()!=elemento2)
+		if (l.elemento() != elemento && p.elemento() != elemento2)
 			return false;
 		else {
 			Lista l1 = l.quitarInicio();
 			Lista p1 = p.quitarInicio();
-			return iguales(l1.elemento(),p1.elemento(),l1,p1);
+			return iguales(l1.elemento(), p1.elemento(), l1, p1);
 		}
 	}
-	
-	public static Lista intercalar(Lista l, Lista p){
-		if (l instanceof ListaImpl && p instanceof ListaImpl){
-			ListaImpl l1 = (ListaImpl)l;
-			ListaImpl p1 = (ListaImpl)p;
+
+	public static Lista intercalar(Lista l, Lista p) {
+		if (l instanceof ListaImpl && p instanceof ListaImpl) {
+			ListaImpl l1 = (ListaImpl) l;
+			ListaImpl p1 = (ListaImpl) p;
 			if (!l1.estaOrdenada() && !p1.estaOrdenada())
 				return null;
 			else {
-				
+				ListaImpl lista = new ListaImpl();
+				return intercalar(lista, l1, p1);
 			}
-		}
-		else
+		} else
 			return null;
-			
+
 	}
-	
-	
+
+	private static Lista intercalar(ListaImpl lista, ListaImpl l1, ListaImpl p1) {
+		if ((p1 == null || p1.largo()==0) && (l1==null && l1.largo() == 0))
+			return lista;
+		int p1Ini = p1.elemento();
+		int l1Ini = l1.elemento();
+		if (p1Ini <= l1Ini) {
+			lista.agregar(p1Ini);
+			return intercalar(lista, l1.quitarInicio(), p1.quitarInicio());
+		} else {
+			lista.agregar(l1Ini);
+		}
+	}
+
 }

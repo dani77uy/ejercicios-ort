@@ -155,12 +155,6 @@ public class Lista implements ILista {
 	}
 
 
-	public Lista quitarInicio() {
-		if (this.esVacia())
-			return null;
-		Lista l = (Lista) this.clone();
-		l.nodoInicial = l.nodoInicial.siguiente;
-		return l;
-	}
+	
 
 }
