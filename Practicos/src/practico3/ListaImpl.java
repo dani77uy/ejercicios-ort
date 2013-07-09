@@ -272,6 +272,7 @@ public class ListaImpl extends Lista {
 		int l1Ini = l1.elemento();
 		if (p1Ini <= l1Ini) {
 			lista.agregar(p1Ini);
+			//FIXME
 			return intercalar(lista, l1.quitarInicio(), p1.quitarInicio());
 		} else {
 			lista.agregar(l1Ini);
