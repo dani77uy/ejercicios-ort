@@ -24,7 +24,7 @@ public interface ILista {
     
     //Pre: lista no vacía
     //Pos: retorna el primer elemento de la lista
-    int elemento();
+    int elementoInicial();
 
     //Pos: retorna una copia de lista independiente en memoria
     ILista clone();

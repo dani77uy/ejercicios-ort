@@ -98,7 +98,7 @@ public class GrafoMatriz implements IGrafo {
 		ILista adyacentes = this.verticesAdyacentes(v);
 		// recorre lista de adyacentes al nodo actual para visitarlos
 		while (!adyacentes.esVacia()) {
-			int i = adyacentes.elemento();
+			int i = adyacentes.elementoInicial();
 			if (!visitado[i])
 				Mostrar_DFS(i, visitado);// llamada recursiva a los nodos
 											// adyacentes para visitarlos
@@ -193,7 +193,7 @@ public class GrafoMatriz implements IGrafo {
 		} else {
 			ILista adyacentes = this.verticesAdyacentes(nodoInicial);
 			while (!adyacentes.esVacia()) {
-				int v = adyacentes.elemento();
+				int v = adyacentes.elementoInicial();
 				adyacentes.eliminar(v);
 				boolean visitado = caminoActual.existe(v);
 
@@ -236,7 +236,7 @@ public class GrafoMatriz implements IGrafo {
 		} else {
 			ILista adyacentes = this.verticesAdyacentes(nodoInicial);
 			while (!adyacentes.esVacia()) {
-				int v = adyacentes.elemento();
+				int v = adyacentes.elementoInicial();
 				adyacentes.eliminar(v);
 				boolean visitado = false;
 				if (!caminoActual.esVacia())

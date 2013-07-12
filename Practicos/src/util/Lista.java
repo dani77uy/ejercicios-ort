@@ -74,8 +74,11 @@ public class Lista implements ILista {
 			return true;
 	}
 
+	/**
+	 * Retorna el valor del primer elemento de la lista
+	 */
 	@Override
-	public int elemento() {
+	public int elementoInicial() {
 		return nodoInicial.dato;
 	}
 
@@ -117,7 +120,14 @@ public class Lista implements ILista {
 		}
 		return nodo;
 	}
-	
+
+	public Lista quitarInicio() {
+		if (this.esVacia())
+			return null;
+		Lista l = (Lista) this.clone();
+		l.nodoInicial = l.nodoInicial.getSiguiente();
+		return l;
+	}
 
 	/************** Clase privada: Especificación del NODO ************/
 	protected class Nodo {
@@ -154,7 +164,60 @@ public class Lista implements ILista {
 		}
 	}
 
+	public Lista agregarAlFinal(Lista p) {
+		Nodo nodo = this.nodoInicial;
+		if (nodo.siguiente == null) {
+			nodo.siguiente = p.nodoInicial;
+			return this;
+		} else {
+			this.quitarInicio();
+			return this.agregarAlFinal(p);
+		}
+	}
 
-	
+	/**
+	 * 
+	 * @param l
+	 * @param p
+	 * @return boolean Ejercicio 3
+	 */
+	public static boolean estaIncluida(Lista l, Lista p) {
+		Nodo pIni = p.nodoInicial;
+		if (l.existe(pIni.dato)) {
+			Nodo lIgualp = l.getNodo(pIni.dato);
+			return estaIncluida(lIgualp, pIni);
+		} else
+			return false;
+	}
+
+	private static boolean estaIncluida(Nodo nodo1, Nodo nodo2) {
+		if (nodo2 == null)
+			return true;
+		else if (nodo2.equals(nodo1))
+			return estaIncluida(nodo1.siguiente, nodo2.siguiente);
+		else
+			return false;
+	}
+
+	private Nodo getNodo(int dato) {
+		Nodo n = this.nodoInicial;
+		while (n != null) {
+			if (n.getDato() == dato)
+				return n;
+			n = n.siguiente;
+		}
+		return null;
+	}
+
+	/*
+	 * public Lista agregarAlFinal(Lista p) { if (this.esVacia()) return p; if
+	 * (p.esVacia()) return this; if (p.esVacia() && this.esVacia()) return
+	 * null; return agregarAlFinal(this.nodoInicial,p.nodoInicial); }
+	 * 
+	 * private Lista agregarAlFinal(Nodo ni1, Nodo ni2) { if (ni1.siguiente ==
+	 * null) ni1.siguiente = ni2; else
+	 * 
+	 * }
+	 */
 
 }
