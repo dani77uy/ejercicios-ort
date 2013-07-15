@@ -1,5 +1,7 @@
 package util;
 
+import java.util.NoSuchElementException;
+
 /**
  * 
  * @author Vicky
@@ -29,7 +31,7 @@ public class Lista implements ILista {
 
 	}
 
-	private void insertarInicio(int n) {
+	public void insertarInicio(int n) {
 		Nodo nuevo = new Nodo(n);
 		nuevo.siguiente = nodoInicial;
 		nodoInicial = nuevo;
@@ -93,15 +95,19 @@ public class Lista implements ILista {
 		return nueva;
 	}
 
-	public Nodo getAnterior(Nodo nodo) {
-		Nodo aux = this.nodoInicial;
-		if (!(this.esVacia() || aux.equals(nodo)))
-			while (aux != null) {
-				if (aux.siguiente.equals(nodo))
-					return aux;
-				aux = aux.siguiente;
-			}
-		return null;
+	protected Nodo getAnterior(Nodo nodo) {
+		if (this.esVacia())
+			throw new NoSuchElementException();
+		if (this.nodoInicial.equals(nodo))
+			return null;
+		return this.getAnterior(nodo, this.nodoInicial);
+	}
+	
+	private Nodo getAnterior(Nodo nodo, Nodo var){
+		if (var.siguiente.equals(nodo))
+			return var;
+		else 
+			return this.getAnterior(nodo,var.siguiente);
 	}
 
 	@Override
@@ -114,8 +120,10 @@ public class Lista implements ILista {
 	}
 
 	protected Nodo getUltimoNodo() {
+		if (this.esVacia())
+			return null;
 		Nodo nodo = this.nodoInicial;
-		while (nodo != null) {
+		while (nodo.getSiguiente() != null) {
 			nodo = nodo.getSiguiente();
 		}
 		return nodo;
@@ -155,12 +163,20 @@ public class Lista implements ILista {
 			this.siguiente = siguiente;
 		}
 
+		@Override
 		public boolean equals(Object o) {
 			if (!(o instanceof Nodo))
 				return false;
 			Nodo n = (Nodo) o;
-			return n.dato == this.dato
-					&& n.siguiente.dato == this.siguiente.dato;
+			if (n.siguiente != null)
+				return n.dato == this.dato && n.siguiente.dato == this.siguiente.dato;
+			else
+				return n.dato == this.dato;
+		}
+		
+		@Override
+		public String toString(){
+			return String.valueOf(this.dato);
 		}
 	}
 
@@ -207,6 +223,22 @@ public class Lista implements ILista {
 			n = n.siguiente;
 		}
 		return null;
+	}
+	
+	@Override
+	public String toString(){
+		Nodo node = this.nodoInicial;
+		if (node == null)
+			return "";
+		StringBuilder sb = new StringBuilder();
+		while (node != null){
+			sb.append(node.dato);
+			if (node.siguiente!=null)
+				sb.append(',');
+			node = node.siguiente;
+		}
+		return sb.toString();
+		
 	}
 
 	/*

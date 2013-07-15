@@ -15,24 +15,24 @@ public class ListaImpl extends Lista {
 	 * @param dato
 	 * @return void Ejercicio 1
 	 */
+
 	public void borrar(int dato) {
 		if (!this.esVacia()) {
-			if (this.nodoInicial.getDato() == dato) {
-				Nodo nodo = this.nodoInicial;
-				this.nodoInicial = nodo.getSiguiente();
-			} else {
-				Nodo nodo = this.nodoInicial;
-				Nodo prev = this.nodoInicial;
-				while (nodo != null) {
-					if (nodo.getDato() == dato) {
-						prev.setSiguiente(nodo.getSiguiente());
-					} else {
-						prev = nodo;
-						nodo = nodo.getSiguiente();
-					}
-				}
-			}
+			Nodo nodo1 = this.nodoInicial;
+			Nodo nodo2 = this.nodoInicial.getSiguiente();
+			if (nodo1.getDato() == dato) {
+				this.nodoInicial = this.nodoInicial.getSiguiente();
+			} else
+				this.borrar(nodo1, nodo2, dato);
 		}
+	}
+
+	private void borrar(Nodo nodo1, Nodo nodo2, int dato) {
+		if (nodo1 != null && nodo2 != null)
+			if (nodo2.getDato() == dato)
+				nodo1.setSiguiente(nodo2.getSiguiente());
+			else
+				this.borrar(nodo2, nodo2.getSiguiente(), dato);
 	}
 
 	/**
@@ -74,13 +74,22 @@ public class ListaImpl extends Lista {
 	 * @return ILista Ejercicio 2
 	 */
 	public ILista invertir() {
-		Lista lista = new ListaImpl();
+		/*Lista lista = new ListaImpl();
 		if (this.esVacia())
 			return null;
 		Nodo start = this.getUltimoNodo();
 		while (start != null) {
-			lista.agregar(start.getDato());
+			lista.insertarInicio(start.getDato());
 			start = this.getAnterior(start);
+		}
+		return lista;*/
+		ListaImpl lista = new ListaImpl();
+		if (this.esVacia())
+			return null;
+		Nodo nodo = this.nodoInicial;
+		while (nodo != null){
+			lista.insertarInicio(nodo.getDato());
+			nodo = nodo.getSiguiente();
 		}
 		return lista;
 	}
@@ -220,8 +229,6 @@ public class ListaImpl extends Lista {
 		return lista;
 	}
 
-
-	
 	/**
 	 * 
 	 * @param l
@@ -248,8 +255,7 @@ public class ListaImpl extends Lista {
 	 * 
 	 * @param l
 	 * @param p
-	 * @return Lista
-	 * Ejercicio 3
+	 * @return Lista Ejercicio 3
 	 */
 	public static Lista intercalar(Lista l, Lista p) {
 		if (l instanceof ListaImpl && p instanceof ListaImpl) {
@@ -267,7 +273,7 @@ public class ListaImpl extends Lista {
 	}
 
 	private static Lista intercalar(ListaImpl lista, ListaImpl l1, ListaImpl p1) {
-		if ((p1 == null || p1.largo()==0) && (l1==null || l1.largo() == 0))
+		if ((p1 == null || p1.largo() == 0) && (l1 == null || l1.largo() == 0))
 			return lista;
 		int p1Ini = p1.elementoInicial();
 		int l1Ini = l1.elementoInicial();
@@ -276,25 +282,22 @@ public class ListaImpl extends Lista {
 		} else {
 			lista.agregar(l1Ini);
 		}
-		return intercalar(lista, (ListaImpl)l1.quitarInicio(), (ListaImpl)p1.quitarInicio());
+		return intercalar(lista, (ListaImpl) l1.quitarInicio(),
+				(ListaImpl) p1.quitarInicio());
 	}
-	
+
 	/**
 	 * 
 	 * @param l
 	 * @param p
-	 * @return Lista
-	 * Ejercicio 3
+	 * @return Lista Ejercicio 3
 	 */
-	public static Lista concatenar(Lista l, Lista p){
-		return agregar(l,p);
+	public static Lista concatenar(Lista l, Lista p) {
+		return agregar(l, p);
 	}
 
 	private static Lista agregar(Lista l, Lista p) {
 		return l.agregarAlFinal(p);
 	}
-	
-	
-	
 
 }
