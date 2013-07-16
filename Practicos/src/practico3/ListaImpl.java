@@ -10,6 +10,13 @@ import util.Lista;
  */
 public class ListaImpl extends Lista {
 
+	public ListaImpl(int[] datos, boolean ordenado) {
+		this.crearLista(datos, ordenado);
+	}
+
+	public ListaImpl() {
+	}
+
 	/**
 	 * 
 	 * @param dato
@@ -117,22 +124,27 @@ public class ListaImpl extends Lista {
 		if (this.estaOrdenada()) {
 			Nodo nuevo = new Nodo(dato);
 			Nodo nodo = this.nodoInicial;
-			if (dato <= nodo.getDato())
-				this.insertarInicio(dato);
-			else
-				while (nodo != null) {
-					if (nodo.getSiguiente() != null) {
-						if (nodo.getDato() <= dato	&& nodo.getSiguiente().getDato() >= dato) {
-							nuevo.setSiguiente(nodo.getSiguiente());
+			if (this.nodoInicial == null)
+				this.nodoInicial = new Nodo(dato);
+			else {
+				if (dato <= nodo.getDato())
+					this.insertarInicio(dato);
+				else
+					while (nodo != null) {
+						if (nodo.getSiguiente() != null) {
+							if (nodo.getDato() <= dato
+									&& nodo.getSiguiente().getDato() >= dato) {
+								nuevo.setSiguiente(nodo.getSiguiente());
+								nodo.setSiguiente(nuevo);
+								return;
+							}
+						} else {
 							nodo.setSiguiente(nuevo);
 							return;
 						}
-					} else {
-						nodo.setSiguiente(nuevo);
-						return;
+						nodo = nodo.getSiguiente();
 					}
-					nodo = nodo.getSiguiente();
-				}
+			}
 		}
 	}
 
@@ -210,7 +222,7 @@ public class ListaImpl extends Lista {
 				cont++;
 			}
 		} else
-			throw new IllegalArgumentException();
+			throw new ArrayIndexOutOfBoundsException();
 		return -1;
 	}
 
@@ -222,7 +234,7 @@ public class ListaImpl extends Lista {
 	 */
 	public Lista cambiar(int n, int m) {
 		if (this.esVacia())
-			return null;
+			return this;
 		Lista lista = new Lista();
 		Nodo nodo = this.nodoInicial;
 		while (nodo != null) {
@@ -244,17 +256,15 @@ public class ListaImpl extends Lista {
 	public static boolean iguales(Lista l, Lista p) {
 		if (l.esVacia() && p.esVacia())
 			return true;
-		return iguales(l.elementoInicial(), p.elementoInicial(), l, p);
+		return iguales(l.getNodoInicial(), p.getNodoInicial());
 	}
 
-	private static boolean iguales(int elemento, int elemento2, Lista l, Lista p) {
-		if (l.elementoInicial() != elemento && p.elementoInicial() != elemento2)
-			return false;
-		else {
-			Lista l1 = l.quitarInicio();
-			Lista p1 = p.quitarInicio();
-			return iguales(l1.elementoInicial(), p1.elementoInicial(), l1, p1);
-		}
+	private static boolean iguales(Nodo nodo1, Nodo nodo2) {
+		if (nodo1 == null && nodo2 == null)
+			return true;
+		if (nodo1.equals(nodo2))
+			return iguales(nodo1.getSiguiente(), nodo2.getSiguiente());
+		return false;
 	}
 
 	/**
@@ -263,33 +273,37 @@ public class ListaImpl extends Lista {
 	 * @param p
 	 * @return Lista Ejercicio 3
 	 */
-	public static Lista intercalar(Lista l, Lista p) {
-		if (l instanceof ListaImpl && p instanceof ListaImpl) {
-			ListaImpl l1 = (ListaImpl) l;
-			ListaImpl p1 = (ListaImpl) p;
-			if (!l1.estaOrdenada() && !p1.estaOrdenada())
-				return null;
-			else {
-				ListaImpl lista = new ListaImpl();
-				return intercalar(lista, l1, p1);
-			}
-		} else
-			return null;
 
+	public static Lista intercalar(ListaImpl l, ListaImpl p) {
+		ListaImpl nueva = new ListaImpl();
+		intercalar(l.getNodoInicial(), p.getNodoInicial(), nueva);
+		return nueva;
 	}
 
-	private static Lista intercalar(ListaImpl lista, ListaImpl l1, ListaImpl p1) {
-		if ((p1 == null || p1.largo() == 0) && (l1 == null || l1.largo() == 0))
-			return lista;
-		int p1Ini = p1.elementoInicial();
-		int l1Ini = l1.elementoInicial();
-		if (p1Ini <= l1Ini) {
-			lista.agregar(p1Ini);
-		} else {
-			lista.agregar(l1Ini);
+	private static void intercalar(Nodo n1, Nodo n2, ListaImpl nueva) {
+		if (n1.getSiguiente() == null && n2.getSiguiente() != null) {
+			Nodo aux = n2;
+			while (aux != null) {
+				nueva.insertarOrdenado(aux.getDato());
+				aux = aux.getSiguiente();
+			}
+			return;
 		}
-		return intercalar(lista, (ListaImpl) l1.quitarInicio(),
-				(ListaImpl) p1.quitarInicio());
+		if (n2.getSiguiente() == null && n1.getSiguiente() != null) {
+			Nodo aux = n1;
+			while (aux != null) {
+				nueva.insertarOrdenado(aux.getDato());
+				aux = aux.getSiguiente();
+			}
+			return;
+		}
+		if (n1.getDato() <= n2.getDato()) {
+			nueva.insertarOrdenado(n1.getDato());
+			intercalar(n1.getSiguiente(), n2, nueva);
+		} else {
+			nueva.insertarOrdenado(n2.getDato());
+			intercalar(n1, n2.getSiguiente(), nueva);
+		}
 	}
 
 	/**
@@ -304,6 +318,15 @@ public class ListaImpl extends Lista {
 
 	private static Lista agregar(Lista l, Lista p) {
 		return l.agregarAlFinal(p);
+	}
+
+	private void crearLista(int[] datos, boolean ordenado) {
+		for (int i : datos) {
+			if (ordenado)
+				this.insertarOrdenado(i);
+			else
+				this.insertarInicio(i);
+		}
 	}
 
 }

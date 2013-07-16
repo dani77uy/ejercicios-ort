@@ -109,6 +109,10 @@ public class Lista implements ILista {
 		else 
 			return this.getAnterior(nodo,var.siguiente);
 	}
+	
+	public Nodo getNodoInicial(){
+		return this.nodoInicial;
+	}
 
 	@Override
 	public void mostrar() {

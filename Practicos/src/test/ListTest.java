@@ -7,12 +7,14 @@ import org.junit.Before;
 import org.junit.Test;
 
 import practico3.ListaImpl;
+import util.Lista;
 
 public class ListTest {
 
-	public ListaImpl lista1,lista2,lista3;	
+	public ListaImpl lista1, lista2, lista3;
+
 	@Before
-	public void setUp(){
+	public void setUp() {
 		lista1 = new ListaImpl();
 		lista2 = new ListaImpl();
 		lista3 = new ListaImpl();
@@ -38,7 +40,7 @@ public class ListTest {
 		lista3.agregar(2);
 		lista3.agregar(5);
 	}
-	
+
 	@Test
 	public void testBorrar1() {
 		lista1.borrar(21);
@@ -46,7 +48,7 @@ public class ListTest {
 		String actual = lista1.toString();
 		assertEquals(expected, actual);
 	}
-	
+
 	@Test
 	public void testBorrar2() {
 		lista1.borrar(13);
@@ -54,7 +56,7 @@ public class ListTest {
 		String actual = lista1.toString();
 		assertEquals(expected, actual);
 	}
-	
+
 	@Test
 	public void testBorrar3() {
 		lista1.borrar(2);
@@ -62,7 +64,7 @@ public class ListTest {
 		String actual = lista1.toString();
 		assertEquals(expected, actual);
 	}
-	
+
 	@Test
 	public void testBorrar4() {
 		lista1.borrar(16);
@@ -70,9 +72,9 @@ public class ListTest {
 		String actual = lista1.toString();
 		assertEquals(expected, actual);
 	}
-	
+
 	@Test
-	public void testBorrar5(){
+	public void testBorrar5() {
 		lista1.borrar(2);
 		lista1.borrar(16);
 		lista1.borrar(13);
@@ -81,9 +83,9 @@ public class ListTest {
 		String actual = lista1.toString();
 		assertEquals(expected, actual);
 	}
-	
+
 	@Test
-	public void testBorrar6(){
+	public void testBorrar6() {
 		lista1.borrar(2);
 		lista1.borrar(2);
 		lista1.borrar(2);
@@ -91,9 +93,9 @@ public class ListTest {
 		String actual = lista1.toString();
 		assertEquals(expected, actual);
 	}
-	
+
 	@Test
-	public void testBorrar7(){
+	public void testBorrar7() {
 		lista1.borrar(2);
 		lista1.borrar(56);
 		lista1.borrar(13);
@@ -106,9 +108,9 @@ public class ListTest {
 		String actual = lista1.toString();
 		assertEquals(expected, actual);
 	}
-	
+
 	@Test
-	public void testBorrar8(){
+	public void testBorrar8() {
 		lista1.borrar(21);
 		lista1.agregar(86);
 		String expected = "2,56,13,15,7,13,16,86";
@@ -122,7 +124,7 @@ public class ListTest {
 		int expected = 8;
 		assertEquals(expected, actual);
 	}
-	
+
 	@Test
 	public void testLargo2() {
 		lista1.borrar(56);
@@ -130,9 +132,9 @@ public class ListTest {
 		int expected = 7;
 		assertEquals(expected, actual);
 	}
-	
+
 	@Test
-	public void testLargo3(){
+	public void testLargo3() {
 		lista1.borrar(21);
 		lista1.agregar(86);
 		int expected = 8;
@@ -140,10 +142,9 @@ public class ListTest {
 		assertEquals(expected, actual);
 	}
 
-	/*@Test
-	public void testSnoc() {
-		fail("Not yet implemented");
-	}*/
+	/*
+	 * @Test public void testSnoc() { fail("Not yet implemented"); }
+	 */
 
 	@Test
 	public void testInvertir1() {
@@ -151,10 +152,10 @@ public class ListTest {
 		String expected = "16,13,7,15,21,13,56,2";
 		assertEquals(expected, actual);
 	}
-	
+
 	@Test
 	public void testInvertir2() {
-		ListaImpl inv = (ListaImpl)lista1.invertir();
+		ListaImpl inv = (ListaImpl) lista1.invertir();
 		inv.borrar(56);
 		String actual = inv.toString();
 		String expected = "16,13,7,15,21,13,2";
@@ -167,7 +168,7 @@ public class ListTest {
 		boolean actual = lista2.estaOrdenada();
 		assertEquals(expected, actual);
 	}
-	
+
 	@Test
 	public void testEstaOrdenada2() {
 		boolean expected = false;
@@ -182,7 +183,7 @@ public class ListTest {
 		String actual = lista2.toString();
 		assertEquals(expected, actual);
 	}
-	
+
 	@Test
 	public void testInsertarOrdenado2() {
 		lista2.insertarOrdenado(45);
@@ -190,7 +191,7 @@ public class ListTest {
 		String actual = lista2.toString();
 		assertEquals(expected, actual);
 	}
-	
+
 	@Test
 	public void testInsertarOrdenado3() {
 		lista2.insertarOrdenado(2);
@@ -198,7 +199,7 @@ public class ListTest {
 		String actual = lista2.toString();
 		assertEquals(expected, actual);
 	}
-	
+
 	@Test
 	public void testInsertarOrdenado4() {
 		lista2.insertarOrdenado(15);
@@ -213,7 +214,7 @@ public class ListTest {
 		int expected = 2;
 		assertEquals(expected, actual);
 	}
-	
+
 	@Test
 	public void testCuenta2() {
 		lista1.insertarInicio(17);
@@ -223,16 +224,16 @@ public class ListTest {
 		lista1.insertarInicio(17);
 		int actual = lista1.cuenta(17);
 		int expected = 3;
-		assertEquals(expected, actual); 
+		assertEquals(expected, actual);
 	}
-	
+
 	@Test
 	public void testCuenta3() {
 		int actual = lista1.cuenta(2);
 		int expected = 1;
 		assertEquals(expected, actual);
 	}
-	
+
 	@Test
 	public void testCuenta4() {
 		int actual = lista1.cuenta(23);
@@ -246,7 +247,7 @@ public class ListTest {
 		int expected = 56;
 		assertEquals(expected, actual);
 	}
-	
+
 	@Test
 	public void testMaximo2() {
 		int actual = lista3.maximo();
@@ -260,7 +261,7 @@ public class ListTest {
 		int expected = lista1.promedio();
 		assertEquals(expected, actual);
 	}
-	
+
 	@Test
 	public void testPromedio2() {
 		lista1.insertarInicio(7);
@@ -268,14 +269,14 @@ public class ListTest {
 		int expected = lista1.promedio();
 		assertEquals(expected, actual);
 	}
-	
+
 	@Test(expected = ArithmeticException.class)
 	public void testPromedio3() {
 		ListaImpl l = new ListaImpl();
 		int expected = l.promedio();
 		System.out.println(expected);
 	}
-	
+
 	@Test
 	public void testPromedio4() {
 		ListaImpl l = new ListaImpl();
@@ -292,29 +293,29 @@ public class ListTest {
 		int expected = lista1.tomar_n(1);
 		assertEquals(expected, actual);
 	}
-	
+
 	@Test
 	public void testTomar_n2() {
 		int actual = 21;
 		int expected = lista1.tomar_n(4);
 		assertEquals(expected, actual);
 	}
-	
+
 	@Test
 	public void testTomar_n3() {
 		int actual = 13;
 		int expected = lista1.tomar_n(3);
 		assertEquals(expected, actual);
 	}
-	
+
 	@Test
 	public void testTomar_n4() {
 		int actual = 16;
 		int expected = lista1.tomar_n(8);
 		assertEquals(expected, actual);
 	}
-	
-	@Test
+
+	@Test(expected = ArrayIndexOutOfBoundsException.class)
 	public void testTomar_n5() {
 		int actual = 16;
 		int expected = lista1.tomar_n(10);
@@ -322,18 +323,124 @@ public class ListTest {
 	}
 
 	@Test
-	public void testCambiar() {
-		fail("Not yet implemented");
+	public void testCambiar1() {
+		Lista listaCambiada = (Lista) lista1.cambiar(13, 73);
+		String actual = listaCambiada.toString();
+		String expected = "2,56,73,21,15,7,73,16";
+		assertEquals(expected, actual);
 	}
 
 	@Test
-	public void testIguales() {
-		fail("Not yet implemented");
+	public void testCambiar2() {
+		Lista listaCambiada = (Lista) lista1.cambiar(42, 73);
+		String actual = listaCambiada.toString();
+		String expected = "2,56,13,21,15,7,13,16";
+		assertEquals(expected, actual);
 	}
 
 	@Test
-	public void testIntercalar() {
-		fail("Not yet implemented");
+	public void testCambiar3() {
+		ListaImpl l = new ListaImpl();
+		l.insertarInicio(23);
+		l.insertarInicio(23);
+		l.insertarInicio(23);
+		l.insertarInicio(23);
+		Lista lc = l.cambiar(23, 20);
+		String expected = "20,20,20,20";
+		String actual = lc.toString();
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testCambiar4() {
+		ListaImpl v = new ListaImpl();
+		Lista lc = v.cambiar(3, 7);
+		String expected = "";
+		String actual = lc.toString();
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testIguales1() {
+		ListaImpl l1 = new ListaImpl();
+		l1.agregar(2);
+		l1.agregar(56);
+		l1.agregar(13);
+		l1.agregar(21);
+		l1.agregar(15);
+		l1.agregar(7);
+		l1.agregar(13);
+		l1.agregar(16);
+		boolean expected = true;
+		boolean actual = ListaImpl.iguales(lista1, l1);
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testIguales2() {
+		ListaImpl l1 = new ListaImpl(), l2 = new ListaImpl();
+		boolean expected = true;
+		boolean actual = ListaImpl.iguales(l2, l1);
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testIguales3() {
+		ListaImpl l1 = new ListaImpl();
+		boolean expected = false;
+		boolean actual = ListaImpl.iguales(lista1, l1);
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testIguales4() {
+		ListaImpl l1 = new ListaImpl(), l2 = new ListaImpl();
+		l1.insertarInicio(12);
+		l2.insertarInicio(12);
+		boolean expected = true;
+		boolean actual = ListaImpl.iguales(l2, l1);
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testIguales5() {
+		ListaImpl l1 = new ListaImpl(), l2 = new ListaImpl();
+		l1.insertarInicio(12);
+		l2.insertarInicio(12);
+		l1.insertarInicio(15);
+		l2.insertarInicio(14);
+		l1.insertarInicio(14);
+		l2.insertarInicio(15);
+		l1.borrar(15);
+		l1.borrar(14);
+		l2.borrar(15);
+		l2.borrar(14);
+		l2.borrar(20);
+		boolean expected = true;
+		boolean actual = ListaImpl.iguales(l2, l1);
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testIntercalar1() {
+		int[] i1 = { 1, 5, 6, 7, 2, 5, 12 };
+		int[] i2 = { 7, 4, 11, 0, 3, 5, 10, 12 };
+		ListaImpl l = new ListaImpl(i1, true);
+		ListaImpl p = new ListaImpl(i2, true);
+		String expected = "0,1,2,3,4,5,5,5,6,7,7,10,11,12";
+		String actual = ListaImpl.intercalar(l, p).toString();
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testIntercalar2() {
+		int[] i1 = { 2, 5, 1, 2 };
+		int[] i2 = { 1, 0 };
+		ListaImpl l = new ListaImpl(i1, true);
+		ListaImpl p = new ListaImpl(i2, true);
+		String expected = "0,1,1,2,2,5";
+		String actual = ListaImpl.intercalar(l, p).toString();
+		assertEquals(expected, actual);
 	}
 
 	@Test
