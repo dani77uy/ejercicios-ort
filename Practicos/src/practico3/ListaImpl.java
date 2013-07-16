@@ -74,20 +74,17 @@ public class ListaImpl extends Lista {
 	 * @return ILista Ejercicio 2
 	 */
 	public ILista invertir() {
-		/*Lista lista = new ListaImpl();
-		if (this.esVacia())
-			return null;
-		Nodo start = this.getUltimoNodo();
-		while (start != null) {
-			lista.insertarInicio(start.getDato());
-			start = this.getAnterior(start);
-		}
-		return lista;*/
+		/*
+		 * Lista lista = new ListaImpl(); if (this.esVacia()) return null; Nodo
+		 * start = this.getUltimoNodo(); while (start != null) {
+		 * lista.insertarInicio(start.getDato()); start =
+		 * this.getAnterior(start); } return lista;
+		 */
 		ListaImpl lista = new ListaImpl();
 		if (this.esVacia())
 			return null;
 		Nodo nodo = this.nodoInicial;
-		while (nodo != null){
+		while (nodo != null) {
 			lista.insertarInicio(nodo.getDato());
 			nodo = nodo.getSiguiente();
 		}
@@ -102,7 +99,7 @@ public class ListaImpl extends Lista {
 		if (this.esVacia())
 			return true;
 		Nodo aux = this.nodoInicial;
-		while (aux != null) {
+		while (aux.getSiguiente() != null) {
 			if (aux.getDato() > aux.getSiguiente().getDato())
 				return false;
 			aux = aux.getSiguiente();
@@ -118,17 +115,24 @@ public class ListaImpl extends Lista {
 	 */
 	public void insertarOrdenado(int dato) {
 		if (this.estaOrdenada()) {
-			Nodo aux = this.nodoInicial;
-			while (aux != null) {
-				if (aux.getDato() >= dato
-						&& aux.getSiguiente().getDato() < dato) {
-					Nodo nuevo = new Nodo(dato);
-					nuevo.setSiguiente(aux.getSiguiente());
-					aux.setSiguiente(nuevo);
-					return;
+			Nodo nuevo = new Nodo(dato);
+			Nodo nodo = this.nodoInicial;
+			if (dato <= nodo.getDato())
+				this.insertarInicio(dato);
+			else
+				while (nodo != null) {
+					if (nodo.getSiguiente() != null) {
+						if (nodo.getDato() <= dato	&& nodo.getSiguiente().getDato() >= dato) {
+							nuevo.setSiguiente(nodo.getSiguiente());
+							nodo.setSiguiente(nuevo);
+							return;
+						}
+					} else {
+						nodo.setSiguiente(nuevo);
+						return;
+					}
+					nodo = nodo.getSiguiente();
 				}
-				aux = aux.getSiguiente();
-			}
 		}
 	}
 
@@ -173,6 +177,8 @@ public class ListaImpl extends Lista {
 	 * @return int Ejercicio 3
 	 */
 	public int promedio() {
+		if (this.esVacia())
+			throw new ArithmeticException();
 		return this.suma() / this.largo();
 	}
 
