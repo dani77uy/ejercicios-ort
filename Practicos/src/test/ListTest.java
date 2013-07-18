@@ -427,7 +427,7 @@ public class ListTest {
 		int[] i2 = { 7, 4, 11, 0, 3, 5, 10, 12 };
 		ListaImpl l = new ListaImpl(i1, true);
 		ListaImpl p = new ListaImpl(i2, true);
-		String expected = "0,1,2,3,4,5,5,5,6,7,7,10,11,12";
+		String expected = "0,1,2,3,4,5,5,5,6,7,7,10,11,12,12";
 		String actual = ListaImpl.intercalar(l, p).toString();
 		assertEquals(expected, actual);
 	}
@@ -444,78 +444,100 @@ public class ListTest {
 	}
 
 	@Test
-	public void testConcatenar() {
-		fail("Not yet implemented");
+	public void testIntercalar3() {
+		int[] i1 = { 1, 2, 3 };
+		int[] i2 = { 1, 2, 3 };
+		ListaImpl l = new ListaImpl(i1, true);
+		ListaImpl p = new ListaImpl(i2, true);
+		String expected = "1,1,2,2,3,3";
+		String actual = ListaImpl.intercalar(l, p).toString();
+		assertEquals(expected, actual);
 	}
 
 	@Test
-	public void testLista() {
-		fail("Not yet implemented");
+	public void testIntercalar4() {
+		int[] i1 = { 1, 1 };
+		int[] i2 = { 1, 1, 1, 3, 1, 1, 1 };
+		ListaImpl l = new ListaImpl(i1, true);
+		ListaImpl p = new ListaImpl(i2, true);
+		String expected = "1,1,1,1,1,1,1,1,3";
+		String actual = ListaImpl.intercalar(l, p).toString();
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void testConcatenar1() {
+		int[] i1 = {2,7,6,3,2,0};
+		int[] i2 = {4,1,3,9,5,11};
+		ListaImpl l = new ListaImpl(i1,false);
+		ListaImpl p = new ListaImpl(i2,false);
+		String expected = "2,7,6,3,2,0,4,1,3,9,5,11";
+		String actual = ListaImpl.concatenar(l, p).toString();
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void testConcatenar2() {
+		int[] i1 = {2};
+		int[] i2 = {7,2};
+		ListaImpl l = new ListaImpl(i1,false);
+		ListaImpl p = new ListaImpl(i2,false);
+		String expected = "2,7,2";
+		String actual = ListaImpl.concatenar(l, p).toString();
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void testConcatenar3() {
+		int[] i2 = {7,2};
+		ListaImpl l = new ListaImpl();
+		ListaImpl p = new ListaImpl(i2,false);
+		String expected = "7,2";
+		String actual = ListaImpl.concatenar(l, p).toString();
+		assertEquals(expected, actual);
 	}
 
 	@Test
-	public void testAgregar() {
-		fail("Not yet implemented");
+	public void testAgregar1() {
+		lista1.agregar(10);
+		String expected = "2,56,13,21,15,7,13,16,10";
+		String actual = lista1.toString();
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void testAgregar2() {
+		ListaImpl l = new ListaImpl();
+		l.agregar(1);
+		l.agregar(2);
+		String expected = "1,2";
+		String actual = l.toString();
+		assertEquals(expected, actual);
 	}
 
 	@Test
 	public void testEliminar() {
-		fail("Not yet implemented");
+		lista1.eliminar(56);
+		String expected = "2,13,21,15,7,13,16";
+		String actual = lista1.toString();
+		assertEquals(expected, actual);
 	}
 
 	@Test
 	public void testEsVacia() {
-		fail("Not yet implemented");
+		ListaImpl l = new ListaImpl();
+		boolean expected = true;
+		boolean actual = l.esVacia();
+		assertEquals(expected, actual);
 	}
 
 	@Test
 	public void testVaciar() {
-		fail("Not yet implemented");
+		lista1.vaciar();
+		String expected = "";
+		String actual = lista1.toString();
+		assertEquals(expected, actual);
 	}
 
-	@Test
-	public void testExiste() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testElementoInicial() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testClone() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetAnterior() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testMostrar() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetUltimoNodo() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testQuitarInicio() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testAgregarAlFinal() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testEstaIncluida() {
-		fail("Not yet implemented");
-	}
 
 }

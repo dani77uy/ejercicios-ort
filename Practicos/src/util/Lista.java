@@ -123,7 +123,7 @@ public class Lista implements ILista {
 		}
 	}
 
-	protected Nodo getUltimoNodo() {
+	public Nodo getUltimoNodo() {
 		if (this.esVacia())
 			return null;
 		Nodo nodo = this.nodoInicial;

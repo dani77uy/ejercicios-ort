@@ -283,6 +283,7 @@ public class ListaImpl extends Lista {
 	private static void intercalar(Nodo n1, Nodo n2, ListaImpl nueva) {
 		if (n1.getSiguiente() == null && n2.getSiguiente() != null) {
 			Nodo aux = n2;
+			nueva.insertarOrdenado(n1.getDato());
 			while (aux != null) {
 				nueva.insertarOrdenado(aux.getDato());
 				aux = aux.getSiguiente();
@@ -291,6 +292,7 @@ public class ListaImpl extends Lista {
 		}
 		if (n2.getSiguiente() == null && n1.getSiguiente() != null) {
 			Nodo aux = n1;
+			nueva.insertarOrdenado(n2.getDato());
 			while (aux != null) {
 				nueva.insertarOrdenado(aux.getDato());
 				aux = aux.getSiguiente();
@@ -303,7 +305,7 @@ public class ListaImpl extends Lista {
 		} else {
 			nueva.insertarOrdenado(n2.getDato());
 			intercalar(n1, n2.getSiguiente(), nueva);
-		}
+		} 
 	}
 
 	/**
@@ -313,12 +315,39 @@ public class ListaImpl extends Lista {
 	 * @return Lista Ejercicio 3
 	 */
 	public static Lista concatenar(Lista l, Lista p) {
-		return agregar(l, p);
+		ListaImpl nueva = new ListaImpl(); 
+		concatenar(l.getNodoInicial(),p.getNodoInicial(),nueva);
+		return nueva;
 	}
 
+	private static void concatenar(Nodo n1, Nodo n2, ListaImpl nueva) {
+		while(n2 != null){
+       	 nueva.insertarInicio(n2.getDato());
+       	 n2 = n2.getSiguiente();
+        } 
+		while(n1 != null){
+        	 nueva.insertarInicio(n1.getDato());
+        	 n1 = n1.getSiguiente();
+         }
+	}
+
+	public void agregar(int dato){
+		Nodo nodo = new Nodo(dato);
+		if (this.esVacia())
+			this.nodoInicial = nodo;
+		else {
+			Nodo ini = this.nodoInicial;
+			while (ini.getSiguiente() != null){
+				ini = ini.getSiguiente();
+			}
+			ini.setSiguiente(nodo);
+		}
+	}
+
+	/*
 	private static Lista agregar(Lista l, Lista p) {
 		return l.agregarAlFinal(p);
-	}
+	}*/
 
 	private void crearLista(int[] datos, boolean ordenado) {
 		for (int i : datos) {
