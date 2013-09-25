@@ -32,5 +32,15 @@ public class Ciudad implements Comparable<Integer> {
 	public int compareTo(Integer o) {
 		return this.identificador - o;
 	}
+	
+	@Override
+	public boolean equals(Object o){
+		Ciudad c = (Ciudad)o;
+		return c.identificador == this.identificador && c.nombre.equalsIgnoreCase(this.nombre);
+	}
+	
+	public String toString(){
+		return this.identificador + ": " + this.nombre;
+	}
 
 }
