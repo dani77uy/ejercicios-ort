@@ -22,8 +22,7 @@ public class Examen0201Test {
 		arbol.insertar(4);
 		arbol.insertar(15);
 		arbol.insertar(21);
-		int[] datos1 = { 4, 8, 9, 13, 14, 16, 17, 18, 20, 24, 25, 26, 30, 32,
-				40, 43, 45, 47, 50 };
+		int[] datos1 = { 4, 8, 9, 13, 14, 16, 17, 18, 20, 24, 25, 26, 30, 32, 40, 43, 45, 47, 50 };
 		int[] datos2 = { 13, 17, 25, 26, 32, 45 };
 		l1.setDatos(datos1);
 		l2.setDatos(datos2);
@@ -70,4 +69,8 @@ public class Examen0201Test {
 		assertEquals(esperado, actual);
 	}
 
+	@Test
+	public void testEj2_a(){
+		
+	}
 }
