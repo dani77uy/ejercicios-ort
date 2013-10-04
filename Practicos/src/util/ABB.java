@@ -25,8 +25,7 @@ public class ABB<V extends Comparable<V>> {
 
 		@Override
 		public boolean equals(Object o) {
-			if (!(o instanceof ABB.Nodo))
-				return false;
+			if (!(o instanceof ABB.Nodo)) return false;
 			@SuppressWarnings({ "rawtypes" })
 			ABB.Nodo nodo = (ABB.Nodo) o;
 			return nodo.elemento.equals(this.elemento);
@@ -38,8 +37,7 @@ public class ABB<V extends Comparable<V>> {
 	}
 
 	public void insertar(V elemento) {
-		if (!esVacio() && elemento instanceof Integer)
-			nodos.agregar(Integer.parseInt(elemento.toString()));
+		if (!esVacio() && elemento instanceof Integer) nodos.agregar(Integer.parseInt(elemento.toString()));
 		this.root = insertar(this.root, elemento);
 	}
 
@@ -60,20 +58,16 @@ public class ABB<V extends Comparable<V>> {
 	}
 
 	public int cantidadNodos() {
-		if (root == null)
-			return 0;
+		if (root == null) return 0;
 		return cantidadNodos(this.root);
 	}
 
 	private int cantidadNodos(Nodo nodo) {
-		if (nodo.izquierda == null && nodo.derecha == null)
-			return 1;
+		if (nodo.izquierda == null && nodo.derecha == null) return 1;
 		else {
 			int n = 0, m = 0;
-			if (nodo.derecha != null)
-				n = cantidadNodos(nodo.derecha);
-			if (nodo.izquierda != null)
-				m = cantidadNodos(nodo.izquierda);
+			if (nodo.derecha != null) n = cantidadNodos(nodo.derecha);
+			if (nodo.izquierda != null) m = cantidadNodos(nodo.izquierda);
 			return n + m + 1;
 		}
 	}
@@ -83,12 +77,9 @@ public class ABB<V extends Comparable<V>> {
 	}
 
 	private int cantidadHojas(Nodo nodo) {
-		if (nodo == null)
-			return 0;
-		if (nodo.izquierda == null && nodo.derecha == null)
-			return 1;
-		else
-			return cantidadHojas(nodo.izquierda) + cantidadHojas(nodo.derecha);
+		if (nodo == null) return 0;
+		if (nodo.izquierda == null && nodo.derecha == null) return 1;
+		else return cantidadHojas(nodo.izquierda) + cantidadHojas(nodo.derecha);
 
 	}
 
@@ -97,8 +88,7 @@ public class ABB<V extends Comparable<V>> {
 	}
 
 	private int altura(Nodo nodo) {
-		if (nodo == null)
-			return 0;
+		if (nodo == null) return 0;
 		else {
 			int i = altura(nodo.izquierda);
 			int d = altura(nodo.derecha);
@@ -107,12 +97,9 @@ public class ABB<V extends Comparable<V>> {
 	}
 
 	private int max(int n1, int n2) {
-		if (n1 > n2)
-			return n1;
-		if (n2 > n1)
-			return n2;
-		if (n2 == n1)
-			return n1;
+		if (n1 > n2) return n1;
+		if (n2 > n1) return n2;
+		if (n2 == n1) return n1;
 		return 0;
 	}
 
@@ -125,18 +112,13 @@ public class ABB<V extends Comparable<V>> {
 	}
 
 	private Nodo borrarElemento(V elemento, Nodo nodo) {
-		if (nodo == null)
-			return null;
+		if (nodo == null) return null;
 		int cmp = elemento.compareTo(nodo.elemento);
-		if (cmp < 0)
-			nodo.izquierda = borrarElemento(elemento, nodo.izquierda);
-		else if (cmp > 0)
-			nodo.derecha = borrarElemento(elemento, nodo.derecha);
+		if (cmp < 0) nodo.izquierda = borrarElemento(elemento, nodo.izquierda);
+		else if (cmp > 0) nodo.derecha = borrarElemento(elemento, nodo.derecha);
 		else {
-			if (nodo.derecha == null)
-				return nodo.izquierda;
-			if (nodo.izquierda == null)
-				return nodo.derecha;
+			if (nodo.derecha == null) return nodo.izquierda;
+			if (nodo.izquierda == null) return nodo.derecha;
 			Nodo t = nodo;
 			nodo = min(t.derecha);
 			nodo.derecha = borrarMinimo(t.derecha);
@@ -146,15 +128,12 @@ public class ABB<V extends Comparable<V>> {
 	}
 
 	private Nodo min(Nodo nodo) {
-		if (nodo.izquierda == null)
-			return nodo;
-		else
-			return min(nodo.izquierda);
+		if (nodo.izquierda == null) return nodo;
+		else return min(nodo.izquierda);
 	}
 
 	private Nodo borrarMinimo(Nodo nodo) {
-		if (nodo.izquierda == null)
-			return nodo.derecha;
+		if (nodo.izquierda == null) return nodo.derecha;
 		nodo.izquierda = borrarMinimo(nodo.izquierda);
 		return nodo;
 	}
@@ -164,12 +143,8 @@ public class ABB<V extends Comparable<V>> {
 	}
 
 	private boolean pertenece(Nodo nodo, V e) {
-		if (nodo != null)
-			if (nodo.elemento.equals(e))
-				return true;
-			else
-				return pertenece(nodo.izquierda, e)
-						|| pertenece(nodo.derecha, e);
+		if (nodo != null) if (nodo.elemento.equals(e)) return true;
+		else return pertenece(nodo.izquierda, e) || pertenece(nodo.derecha, e);
 		return false;
 	}
 
@@ -178,8 +153,7 @@ public class ABB<V extends Comparable<V>> {
 	}
 
 	public void listarDescendente() {
-		if (this.root == null)
-			System.out.println("");
+		if (this.root == null) System.out.println("");
 		else {
 			listarDescendente(this.root);
 			for (V v : lista) {
@@ -191,13 +165,12 @@ public class ABB<V extends Comparable<V>> {
 	private List<V> lista = new ArrayList<V>();
 
 	private void listarDescendente(Nodo nodo) {
-		if (nodo != null)
-			if (!lista.contains(nodo.elemento)) {
-				listarDescendente(nodo.derecha);
-				lista.add(nodo.elemento);
-				listarDescendente(nodo.izquierda);
-				lista.add(nodo.elemento);
-			}
+		if (nodo != null) if (!lista.contains(nodo.elemento)) {
+			listarDescendente(nodo.derecha);
+			lista.add(nodo.elemento);
+			listarDescendente(nodo.izquierda);
+			lista.add(nodo.elemento);
+		}
 	}
 
 	@Override
@@ -210,8 +183,7 @@ public class ABB<V extends Comparable<V>> {
 	}
 
 	private String preorder(Nodo nodo, StringBuilder s) {
-		if (nodo == null)
-			return s.toString();
+		if (nodo == null) return s.toString();
 		s.append(nodo.toString());
 		this.preorder(nodo.izquierda, s);
 		this.preorder(nodo.derecha, s);
@@ -223,8 +195,7 @@ public class ABB<V extends Comparable<V>> {
 	}
 
 	private String postorder(Nodo nodo, StringBuilder s) {
-		if (nodo == null)
-			return s.toString();
+		if (nodo == null) return s.toString();
 		this.postorder(nodo.izquierda, s);
 		this.postorder(nodo.derecha, s);
 		s.append(nodo.toString());
@@ -236,13 +207,11 @@ public class ABB<V extends Comparable<V>> {
 	}
 
 	private String inorder(Nodo nodo, StringBuilder s) {
-		if (nodo == null)
-			return s.toString();
+		if (nodo == null) return s.toString();
 		this.inorder(nodo.izquierda, s);
 		s.append(nodo.toString());
 		this.inorder(nodo.derecha, s);
 		return s.toString();
 	}
-	
-	
+
 }
